@@ -31,7 +31,7 @@ function [g,c_prev] = grad_params(s,x,x_old,y,k,alpha,c,lambda,gw,gx,z,fx_old,fn
   else
     GRAD.lambda =  c(:)' * (y(:)- x(:));
   end
-  GRAD.lambda = GRAD.lambda * lambda;
+  GRAD.lambda = GRAD.lambda * s.pos.d_raw(lambda);
 
   for j = 1:s.nfilters
     fc = s.vec(train.filter_circ_conv(c,j,s));

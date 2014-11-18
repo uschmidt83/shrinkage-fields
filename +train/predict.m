@@ -9,7 +9,7 @@
 function [U,psnrs] = predict(U, theta, data, s, shrinkage)
 
   THETA = misc.vec2struct(theta,s.THETA);
-  lambda = exp(THETA.lambda);
+  lambda = s.pos.from_raw(THETA.lambda);
   shrinkage = rbfmix.update(shrinkage,THETA.weights);
   if s.do_filterlearning
     s = train.model_filter_update(s,THETA.filters);

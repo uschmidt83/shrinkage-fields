@@ -19,7 +19,7 @@ function [F,G] = objective_all_stages(theta, data, s, shrinkage)
   for i = 1:s.nstages
     THETA(i) = misc.vec2struct(theta(:,i),s.THETA);
     weights  = [weights, THETA(i).weights];    %#ok
-    lambda   = [lambda, exp(THETA(i).lambda)]; %#ok
+    lambda   = [lambda, s.pos.from_raw(THETA(i).lambda)]; %#ok
     if s.do_filterlearning
       [ss(i),fnorms{i}] = train.model_filter_update(ss(i),THETA(i).filters);
     end  

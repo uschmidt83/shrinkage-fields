@@ -15,7 +15,7 @@ function [shrink,THETA,theta0,nparams,learning] = init_params(s)
 
   % THETA, theta0: initialization for model parameters
   THETA         = struct;
-  THETA.lambda  = log(1e-1);
+  THETA.lambda  = s.pos.to_raw(1e-1);
   THETA.weights = repmat(shrink.weights,s.nfilters,1);
   if s.do_filterlearning
   THETA.filters = reshape(eye(size(s.filter_basis,2)),[],1);

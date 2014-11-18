@@ -48,6 +48,9 @@ function csf_train
   static.k_sz_max          = 37; % largest kernel size in training set (assumed to be bigger than filter size)
   static.discard_bndry     = (static.k_sz_max-1)/2;
   end
+  % constrain lambda to be positive:
+  % static.pos = train.pos_exp;    % as used in the paper
+  static.pos = train.pos_expident; % typically works better
   
 
   %% SETUP

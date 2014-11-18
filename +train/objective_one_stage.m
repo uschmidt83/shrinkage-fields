@@ -12,7 +12,7 @@ function [F,G] = objective_one_stage(U, theta, data, s, shrinkage)
 
   THETA     = misc.vec2struct(theta,s.THETA);
   weights   = THETA.weights;
-  lambda    = exp(THETA.lambda);
+  lambda    = s.pos.from_raw(THETA.lambda);
   shrinkage = rbfmix.update(shrinkage,weights);
 
   if s.do_filterlearning, [s,fnorms] = train.model_filter_update(s,THETA.filters);

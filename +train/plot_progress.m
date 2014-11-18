@@ -12,7 +12,7 @@ function plot_progress(s,shrinkage,THETA)
     MAX = 255; R = -MAX:1e-1:MAX;
     nstages = numel(THETA);
     for i = 1:nstages
-      lambda = exp(THETA(i).lambda);
+      lambda = s.pos.from_raw(THETA(i).lambda);
       V = {}; for k = 1:s.nfilters, V = [V,{R},{shrinkage(k,i).eval(R)}]; end %#ok
 
       m = 2+s.do_filterlearning; subplot(nstages,m,1+(i-1)*m)
