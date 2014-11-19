@@ -6,7 +6,7 @@
 %   Uwe Schmidt and Stefan Roth. Shrinkage Fields for Effective Image Restoration.
 %   Please see the file LICENSE.txt for the license governing this code.
 
-function [shrink,THETA,theta0,nparams,learning] = init_params(s)
+function [shrink,THETA,learning] = init_params(s)
   % shrinkage function (~ identity function)
   shrink           = struct;
   shrink.precision = 0.01;

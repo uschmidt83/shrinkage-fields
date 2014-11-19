@@ -9,8 +9,8 @@
 function csf_train
 
   %% OPTIONS
-  pw         = 0; % pairwise model
-  deblurring = 0; % deblurring instead of denoising  
+  pw         = false; % pairwise model
+  deblurring = false; % deblurring instead of denoising  
   static = struct;
 
   % MODEL
@@ -62,22 +62,30 @@ function csf_train
   data           = train.precompute_data(data);
 
   U = data.Y; % prediction from previous stage (initialize with observed data)
-  % note: recommended for joint training to use parameters from greedily trained models as initialization
-  [static.shrink,static.THETA,theta0,nparams,learning] = train.init_params(static);
+  [static.shrink,static.THETA,learning] = train.init_params(static);
+  % note: recommended for joint training to use parameters from
+  %       greedily trained models as initialization, e.g.:
+  % load('model.mat','learning');
+  % theta0 = arrayfun(@(t){misc.struct2vec(t)}, learning.THETA(2:end));
+  % theta0 = vertcat(theta0{:});
+
   if static.do_plot, figure(1), clf, colormap(gray(256)), end
 
-
   %% LEARNING
+  experiment = 'model.mat';
   if static.do_joint_training
+    if ~exist('theta0','var'), theta0 = repmat(learning.theta(:,1),static.nstages,1); end
     shrinkage = rbfmix.from_struct(repmat(static.shrink,static.nfilters,static.nstages));
-    cost_func = @(theta) train.objective_all_stages(reshape(theta,nparams,static.nstages), data, static, shrinkage);
-    minimizer = train.get_minimizer(static,cost_func,repmat(theta0,static.nstages,1));
-    learning.theta(:,2:end) = reshape(minimizer(),nparams,static.nstages);
+    cost_func = @(theta) train.objective_all_stages(reshape(theta,[],static.nstages), data, static, shrinkage);
+    minimizer = train.get_minimizer(static,cost_func,theta0);
+    learning.theta(:,2:end) = reshape(minimizer(),[],static.nstages);
     for i = 1:static.nstages
       learning.THETA(i+1)       = misc.vec2struct(learning.theta(:,i+1),static.THETA);
       [U,learning.psnrs(:,i+1)] = train.predict(U, learning.theta(:,i+1), data, static, shrinkage(:,i));
     end
+    if ~isempty(experiment), save(experiment,'static','learning'); end
   else
+    if ~exist('theta0','var'), theta0 = learning.theta(:,1); end
     shrinkage = rbfmix.from_struct(repmat(static.shrink,static.nfilters,1));
     cost_func = @(theta,U) train.objective_one_stage(U, theta, data, static, shrinkage);
     minimizer = train.get_minimizer(static,cost_func,theta0);
@@ -85,9 +93,9 @@ function csf_train
       learning.theta(:,i+1)     = minimizer(U);
       learning.THETA(i+1)       = misc.vec2struct(learning.theta(:,i+1),static.THETA);
       [U,learning.psnrs(:,i+1)] = train.predict(U, learning.theta(:,i+1), data, static, shrinkage);
+      if ~isempty(experiment), save(experiment,'static','learning'); end
     end
   end
-  % save('model.mat','static','learning');
   
   fprintf('\nAvg. PSNR on training set:\n');
   for i = 1:static.nstages
