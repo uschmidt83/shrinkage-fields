@@ -1,2 +1,9 @@
+19 Nov 2014 - 1.1
+- Added better method to constrain lambda to be positive during training (+train/@pos_expident)
+- Added +train/to_model.m to use learned models in csf_predict.m
+- Joint training now easier to continue from greedily trained model
+- Fixed bug in csf_visualize.m
+- Fixed bug in +train/plot_progress.m
+
 07 May 2014 - 1.0
 - Initial release
