@@ -10,6 +10,9 @@
 
 function csf_demo
 
+  % load your own learned model like this:
+  % name = 'my model'; model = train.to_model('model.mat');
+  
   %% load ground truth test image
   x_gt = double(rgb2gray(imread('office_4.jpg')));
   figure, colormap(gray(256))
