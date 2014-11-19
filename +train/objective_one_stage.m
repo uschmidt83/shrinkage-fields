@@ -1,6 +1,6 @@
 %OBJECTIVE_ONE_STAGE - Objective function to (greedily) train (a single model stage of) a shrinkage field (cascade).
 %   See Sec. 1.2.1 of the supplemental material.
-%   See also OBJECTIVE_ALL_STAGEs, GRAD_PARAMS.
+%   See also OBJECTIVE_ALL_STAGES, GRAD_PARAMS.
 
 %   Author: Uwe Schmidt, TU Darmstadt (uwe.schmidt@gris.tu-darmstadt.de)
 %

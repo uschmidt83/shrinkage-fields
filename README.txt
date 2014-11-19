@@ -2,7 +2,7 @@ The code in this package implements image deconvolution and denoising as describ
 
   Uwe Schmidt and Stefan Roth.
   Shrinkage Fields for Effective Image Restoration.
-  IEEE Conference on Computer Vision and Pattern Recognition (CVPR 2014), Columbus, Ohio, June 2014.
+  IEEE Conference on Computer Vision and Pattern Recognition (CVPR), Columbus, Ohio, June 2014.
 
 Please cite the paper if you are using this code in your research.
 Please see the file LICENSE.txt for the license governing this code.

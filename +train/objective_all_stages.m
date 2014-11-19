@@ -26,7 +26,7 @@ function [F,G] = objective_all_stages(theta, data, s, shrinkage)
   end
   shrinkage = rbfmix.update(shrinkage,weights);
 
-  train.plot_progress(s,shrinkage,THETA);
+  train.plot_progress(ss,shrinkage,THETA);
   randomimage = randsample(s.nimages,1);
   
   [F,G] = deal(0);

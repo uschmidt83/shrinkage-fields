@@ -24,7 +24,7 @@ function csf_visualize(m)
   if m.nfilters > 2
     figure('name','Filters'), colormap(gray(256))
     fdims = size(m.f{1});
-    I = reshape(horzcat(m.f{:}),m.nstages*fdims(1),[]);
+    I = cell2mat(m.f');
     I = misc.separate_blocks(I,fdims);
     imagesc(I), axis image off, colorbar %#ok
     title(sprintf('%d filters of size %dx%d for %d stages', m.nfilters, fdims(1), fdims(2), m.nstages))
