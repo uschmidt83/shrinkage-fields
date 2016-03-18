@@ -8,8 +8,8 @@ Please cite the paper if you are using this code in your research.
 Please see the file LICENSE.txt for the license governing this code.
 
   Version:       1.1 (19/11/2014), see CHANGELOG.txt
-  Contact:       Uwe Schmidt <uwe.schmidt@gris.tu-darmstadt.de>
-  Project page:  http://www.gris.tu-darmstadt.de/research/visinf/software/index.en.htm
+  Contact:       Uwe Schmidt <research@uweschmidt.org>
+  Project page:  http://www.visinf.tu-darmstadt.de/vi_research/code/index.en.jsp#shrinkage_fields
   GitHub:        https://github.com/uschmidt83/shrinkage-fields
 
 
